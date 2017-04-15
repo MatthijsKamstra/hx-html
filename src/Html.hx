@@ -1,25 +1,5 @@
 package;
 
-
-// https://www.w3.org/TR/Html401/struct/global.Html#h-7.5.4
-// div span
-/**
- *  id, class (document-wide identifiers)
-lang (language information), dir (text direction)
-title (element title)
-style (inline style information)
-align (alignment)
-onclick, ondblclick, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout, onkeypress, onkeydown, onkeyup (intrinsic events)
- */
-typedef DivAttribute = {
-	@:optional var id : String;
-	@:optional var clas : String;
-	@:optional var lang : String;
-	@:optional var dir : String;
-	@:optional var title : String;
-	@:optional var style : String;
-	@:optional var align : String;
-}
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
@@ -79,6 +59,7 @@ class Html {
 	public static function el(el:String, ?att:Attribute, ?elements:Array<El>) : El { return new El(el, att, elements); }
 
 	public static function div(?att:Attribute, ?elements:Array<El>) : El { return new El('div', att, elements); }
+	public static function span(?att:Attribute, ?elements:Array<El>) : El { return new El('span', att, elements); }
 	public static function p(?att:Attribute, ?elements:Array<El>) : El { return new El('p', att, elements); }
 	public static function button(?att:Attribute, ?elements:Array<El>) : El { return new El('button', att, elements); }
 
@@ -140,9 +121,13 @@ class El {
 				if(name == "comment"){
 					_html += ' ${att.text} -->\n';
 				} else{
-					_html += '>${att.text}</$name>\n';
+					if(elements == null) {
+						isDone = true;
+						_html += '>${att.text}</$name>\n';
+					} else {
+						_html += '>${att.text}\n';
+					}
 				}
-				isDone = true;
 			} else {
 				_html += '>\n';
 			}

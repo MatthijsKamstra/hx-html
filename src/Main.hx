@@ -32,7 +32,9 @@ class Main {
 					p({text: "{{test}}"}),
 					p({title:"p-title",text:"hello"}),
 					el("address",{id:"address-id",text:"not one I code for"}),
-					a({href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title"}),
+					a({href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title"},[
+						span({clas:"red", text:"span me"})
+					]),
 					button({clas:"testBtn", text:"click"})
 				])
 			])
@@ -40,8 +42,9 @@ class Main {
 
 		#if neko
 			Sys.println('---------');
-			Sys.println(html.toString());
-			sys.io.File.saveContent('bin/_data/test.html', html.toString());
+			var out = html.toString();
+			Sys.println(out);
+			sys.io.File.saveContent('bin/_data/test.html', out);
 			Sys.println('---------');
 		#else
 			trace(html.toString());
