@@ -4,8 +4,18 @@
 
 Create html template with Haxe, with some form of checking.
 
-This is a **WIP** use with caution!
+This is **WIP** use with caution!
 
+Current elements are:
+
+- h1 til h6
+- p
+- a
+- div
+- span
+- button
+- template (not a standard element)
+- comment (`<!-- ... -->`)
 
 # why
 
@@ -14,6 +24,26 @@ I want to use generated template for [hxmeteor](https://github.com/MatthijsKamst
 
 I guess you can use it for anything!
 
+# Usage Haxelib
+
+
+You might want to update and/or correct the externs: install this repo locally
+
+```
+haxelib dev hx-html path/to/folder/src
+```
+
+Or use the developers version / cutting edge: this git repo
+
+```
+haxelib git hx-html https://github.com/MatthijsKamstra/hx-html
+```
+
+And don't forget to add it to your build file
+
+```
+-lib hx-html
+```
 
 # Template engine
 
@@ -60,8 +90,6 @@ Output
 		<h1>PAGEONE</h1>
 		<p>template for pageone</p>
 		<p>{{test}}</p>
-		<p title="p-title">hello</p>
-		<a href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
 		<button class="testBtn">click</button>
 	</div>
 </template>
@@ -69,28 +97,73 @@ Output
 
 # TIPS
 
-this is WIP, so diffintly not complete.
+This is WIP, so diffintly not complete.
+
+### any element
+
+But you can generate **any** element with `el(...)`
 
 ```haxe
 var html = html([
-	template({name:templateName},[
-		comment({text:'Start template: ${templateName}'}),
-		el("address",{id:"address-id",text:"not one I code for"})
+	template({name:'test'},[
+		comment({text:'element: address'}),
+		el("address",{id:"address-id",text:"element address"})
+	])
+]);
+```
+
+output
+```html
+<template name="test">
+	<!-- element: address -->
+	<address id="address-id">element address</address>
+</template>
+
+```
+
+### unknown attributes
+
+Attributes are defined by typedef, but I can't guess what `data-` your would like to create. Or you just want a unknown one.
+
+Just use quotes:
+
+```haxe
+var html = html([
+	template({name:'foobar'},[
+		comment({text:'element: a with attribute foo'}),		a({"foo":"bar",href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title",}),
 	])
 ]);
 
 ```
 
+output
+
+```html
+
+<!-- This template is generated with Haxe. Do not edit! -->
+<template name="foobar">
+	<!-- element: a with attribute foo -->
+	<a foo="bar" href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
+</template>
+
+```
+
+### clas vs class
+
+`class` is a reserved word in Haxe. So use `clas` instead.
+Auto completion should fix it for you.
+
+
 
 # Others
 
-These are the html template generators I found.
+These are the Haxe/html template generators I found.
 
 - <https://github.com/skial/fe> (Create Html from a small subset of Haxe that resembles CSS selectors.)
 - <https://github.com/MarcWeber/haxe-macro-html-templates> (haml style macro)
-- <https://github.com/benmerckx/ithril> (strange syntax)
-- <https://github.com/ciscoheat/mithril-hx> (closer to what I want)
-- <https://github.com/fponticelli/doom>
+- <https://github.com/benmerckx/ithril> (experimantal syntax)
+- <https://github.com/ciscoheat/mithril-hx> (very simular to this version)
+- <https://github.com/fponticelli/doom> (simular)
 - <https://github.com/MarcWeber/haxe-html> (parser?)
 
 
