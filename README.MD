@@ -97,11 +97,14 @@ Output
 
 # TIPS
 
-This is WIP, so diffintly not complete.
+This is WIP, so not complete AND may change in the future.
 
 ### any element
 
+I have not written all typedef yet and some goes for elements.  
 But you can generate **any** element with `el(...)`
+
+So lets look at `address` (I have never used this element before, so a good one to show how it works)
 
 ```haxe
 var html = html([
@@ -113,6 +116,7 @@ var html = html([
 ```
 
 output
+
 ```html
 <template name="test">
 	<!-- element: address -->
@@ -123,14 +127,15 @@ output
 
 ### unknown attributes
 
-Attributes are defined by typedef, but I can't guess what `data-` your would like to create. Or you just want a unknown one.
+Attributes are defined by typedef, but I can't guess what `data-` your would like to create. Or you just want an unknown one (lets take unknown attribute `foo`).
 
 Just use quotes:
 
 ```haxe
 var html = html([
 	template({name:'foobar'},[
-		comment({text:'element: a with attribute foo'}),		a({"foo":"bar",href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title",}),
+		comment({text:'element: a with attribute foo'}),
+		a({"foo":"bar",href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title",}),
 	])
 ]);
 
@@ -150,8 +155,42 @@ output
 
 ### clas vs class
 
-`class` is a reserved word in Haxe. So use `clas` instead.
+`class` is a reserved word in Haxe. So use `clas` instead.  
 Auto completion should fix it for you.
+
+```haxe
+var html = html([
+	template({name:'footwo'},[
+		div({clas:'container'},[
+			p({text: 'text'}),
+		])
+	])
+]);
+```
+
+Or quote "class"
+
+```haxe
+var html = html([
+	template({name:'footwo'},[
+		div({'class':'container'},[
+			p({text: 'text'}),
+		])
+	])
+]);
+```
+
+output will be the same
+
+```html
+<!-- This template is generated with Haxe. Do not edit! -->
+<template name="footwo">
+	<div class="container">
+		<p>text</p>
+	</div>
+</template>
+
+```
 
 
 
