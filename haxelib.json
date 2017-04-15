@@ -1,0 +1,11 @@
+{
+	"name": "hx-html",
+	"url" : "https://github.com/MatthijsKamstra/hx-html",
+	"license": "MIT",
+	"tags": ["html","generate"],
+	"description": "Create html with Haxe",
+	"version": "0.0.1",
+	"classPath": "src",
+	"releasenote": "initial release",
+	"contributors": ["MatthijsKamstra"]
+}
