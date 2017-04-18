@@ -8,18 +8,18 @@ This is **WIP** use with caution!
 
 Current elements are:
 
-- h1 til h6
-- p
-- a
-- div
-- span
-- button
-- template (not a standard element)
+- `<h1>` til `<h6>`
+- `<p>`
+- `<a>`
+- `<div>`
+- `<span>`
+- `<button>`
+- `<template>` (not a standard element)
 - comment (`<!-- ... -->`)
 
 # why
 
-This will fix a very specific problem I had.
+This will fix a specific problem I had.
 I want to use generated template for [hxmeteor](https://github.com/MatthijsKamstra/hxmeteor).
 
 I guess you can use it for anything!
@@ -49,17 +49,17 @@ And don't forget to add it to your build file
 
 This is the desired output
 
-(this a simple "blaze" template example, the default template engine in meteor)
+(this a simple "[blaze](https://guide.meteor.com/blaze.html)" template example, the default template engine in [meteor](https://www.meteor.com/))
 
 ```html
 <template name="pageone">
-	<!-- Start template: pageone -->
-	<div class="container">
-		<h1>PAGEONE</h1>
-		<p>template for pageone</p>
-		<p>test: {{test}}</p>
-		<button class="testBtn">click</button>
-	</div>
+  <!-- Start template: pageone -->
+  <div class="container">
+    <h1>PAGEONE</h1>
+    <p>template for pageone</p>
+    <p>test: {{test}}</p>
+    <button class="testBtn">click</button>
+  </div>
 </template>
 ```
 
@@ -68,14 +68,15 @@ How to make this in Haxe with hx-html
 ```haxe
 var templateName = 'pageone';
 var html = html([
-	template({name:templateName},[
-		comment({text:'Start template: ${templateName}'}),
-		div({clas:'container'},[
-			h1({text:'${templateName.toUpperCase()}'}),
-			p({text: 'template for ${templateName}'}),
-			button({clas:"testBtn", text:"click"})
-		])
-	])
+  template({name:templateName},[
+    comment({text:'Start template: ${templateName}'}),
+    div({clas:'container'},[
+      h1({text:'${templateName.toUpperCase()}'}),
+      p({text: 'template for ${templateName}'}),
+      p({text: 'test: {{test}}'}),
+      button({clas:"testBtn", text:"click"})
+    ])
+  ])
 ]);
 
 ```
@@ -85,13 +86,13 @@ Output
 ```html
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="pageone">
-	<!-- Start template: pageone -->
-	<div class="container">
-		<h1>PAGEONE</h1>
-		<p>template for pageone</p>
-		<p>{{test}}</p>
-		<button class="testBtn">click</button>
-	</div>
+  <!-- Start template: pageone -->
+  <div class="container">
+    <h1>PAGEONE</h1>
+    <p>template for pageone</p>
+    <p>{{test}}</p>
+    <button class="testBtn">click</button>
+  </div>
 </template>
 ```
 
@@ -101,17 +102,17 @@ This is WIP, so not complete AND may change in the future.
 
 ### any element
 
-I have not written all typedef yet and some goes for elements.  
+I have not written all typedef yet and some goes for elements.
 But you can generate **any** element with `el(...)`
 
 So lets look at `address` (I have never used this element before, so a good one to show how it works)
 
 ```haxe
 var html = html([
-	template({name:'test'},[
-		comment({text:'element: address'}),
-		el("address",{id:"address-id",text:"element address"})
-	])
+  template({name:'test'},[
+    comment({text:'element: address'}),
+    el("address",{id:"address-id",text:"element address"})
+  ])
 ]);
 ```
 
@@ -119,8 +120,8 @@ output
 
 ```html
 <template name="test">
-	<!-- element: address -->
-	<address id="address-id">element address</address>
+  <!-- element: address -->
+  <address id="address-id">element address</address>
 </template>
 
 ```
@@ -133,10 +134,10 @@ Just use quotes:
 
 ```haxe
 var html = html([
-	template({name:'foobar'},[
-		comment({text:'element: a with attribute foo'}),
-		a({"foo":"bar",href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title",}),
-	])
+  template({name:'foobar'},[
+    comment({text:'element: a with attribute foo'}),
+    a({"foo":"bar",href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title",}),
+  ])
 ]);
 
 ```
@@ -147,24 +148,24 @@ output
 
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="foobar">
-	<!-- element: a with attribute foo -->
-	<a foo="bar" href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
+  <!-- element: a with attribute foo -->
+  <a foo="bar" href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
 </template>
 
 ```
 
 ### clas vs class
 
-`class` is a reserved word in Haxe. So use `clas` instead.  
-Auto completion should fix it for you.
+`class` is a reserved word in Haxe. So use `clas` instead.
+Auto completion should help you with this.
 
 ```haxe
 var html = html([
-	template({name:'footwo'},[
-		div({clas:'container'},[
-			p({text: 'text'}),
-		])
-	])
+  template({name:'footwo'},[
+    div({clas:'container'},[
+      p({text: 'text'}),
+    ])
+  ])
 ]);
 ```
 
@@ -172,11 +173,11 @@ Or quote "class"
 
 ```haxe
 var html = html([
-	template({name:'footwo'},[
-		div({'class':'container'},[
-			p({text: 'text'}),
-		])
-	])
+  template({name:'footwo'},[
+    div({'class':'container'},[
+      p({text: 'text'}),
+    ])
+  ])
 ]);
 ```
 
@@ -185,9 +186,9 @@ output will be the same
 ```html
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="footwo">
-	<div class="container">
-		<p>text</p>
-	</div>
+  <div class="container">
+    <p>text</p>
+  </div>
 </template>
 
 ```
