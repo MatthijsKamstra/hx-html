@@ -108,8 +108,9 @@ But you can generate **any** element with `el(...)`
 So lets look at `address` (I have never used this element before, so a good one to show how it works)
 
 ```haxe
+var templateName = 'address';
 var html = html([
-  template({name:'test'},[
+  template({name:templateName},[
     comment({text:'element: address'}),
     el("address",{id:"address-id",text:"element address"})
   ])
@@ -119,7 +120,9 @@ var html = html([
 output
 
 ```html
-<template name="test">
+
+<!-- This template is generated with Haxe. Do not edit! -->
+<template name="address">
   <!-- element: address -->
   <address id="address-id">element address</address>
 </template>
@@ -128,15 +131,29 @@ output
 
 ### unknown attributes
 
-Attributes are defined by typedef, but I can't guess what `data-` your would like to create. Or you just want an unknown one (lets take unknown attribute `foo`).
+Attributes are defined by typedef, but I can't guess what `data-` your would like to create. Or you just want an unknown one (lets take unknown attribute `data-foo`).
 
 Just use quotes:
 
 ```haxe
+var templateName = 'element_a';
 var html = html([
-  template({name:'foobar'},[
+  template({name:templateName},[
+    comment({text:'a with attribute default elements'}),
+    a({
+      href:"http://www.haxe.org",
+      text: "haxe.org",
+      target:Target.BLANK,
+      title:"title"
+    }),
     comment({text:'element: a with attribute foo'}),
-    a({"foo":"bar",href:"http://www.haxe.org",text: "haxe.org",target:Target.BLANK,title:"title",}),
+    el('a',{
+      "data-foo":"bar",
+      href:"http://www.haxe.org",
+      text: "haxe.org",
+      target:Target.BLANK,
+      title:"title"
+    }),
   ])
 ]);
 
@@ -147,9 +164,11 @@ output
 ```html
 
 <!-- This template is generated with Haxe. Do not edit! -->
-<template name="foobar">
+<template name="element_a">
+  <!-- a with attribute default elements -->
+  <a href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
   <!-- element: a with attribute foo -->
-  <a foo="bar" href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
+  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
 </template>
 
 ```
@@ -193,6 +212,54 @@ output will be the same
 
 ```
 
+
+
+
+# Vue.js
+
+<https://router.vuejs.org/en/essentials/getting-started.html>
+
+
+```haxe
+var templateName = 'vue0';
+var html = vue([
+  div({id:'app'},[
+    h1({text:'Hello App!'}),
+    p({},[
+      comment({text:'use router-link component for navigation.'}),
+      comment({text:'specify the link by passing the `to` prop.'}),
+      comment({text:'`<router-link>` will be rendered as an `<a>` tag by default'}),
+      routerLink({to:'/foo',text:'Go to Foo'}),
+      routerLink({to:'/foo',text:'Go to Bar'}),
+    ]),
+    comment({text:'route outlet'}),
+    comment({text:'component matched by the route will render here'}),
+    routerView({text:''})
+  ])
+]);
+Out.write(html, templateName);
+```
+
+
+```html
+
+<!-- This template is generated with Haxe. Do not edit! -->
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/foo">Go to Bar</router-link>
+  </p>
+  <!-- route outlet -->
+  <!-- component matched by the route will render here -->
+  <router-view></router-view>
+</div>
+
+
+```
 
 
 # Others

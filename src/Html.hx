@@ -49,14 +49,18 @@ typedef AAttribute = {
 class Html {
 
 	// start
-	public static function html(?elements:Array<El>):El{ return new El('', {}, elements); }
+	public static function html(?elements:Array<El>):El{
+		// make sure we start with an empty file
+		El.reset();
+		return new El('', {}, elements);
+	}
 
 	// meteor
 	public static function template(?att:Attribute, ?elements:Array<El>) : El { return new El('template', att, elements); }
 
 	// I am not going to write down ALL elements
 	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-	public static function el(el:String, ?att:Attribute, ?elements:Array<El>) : El { return new El(el, att, elements); }
+	public static function el(el:String, ?att:Dynamic, ?elements:Array<El>) : El { return new El(el, att, elements); }
 
 	public static function div(?att:Attribute, ?elements:Array<El>) : El { return new El('div', att, elements); }
 	public static function span(?att:Attribute, ?elements:Array<El>) : El { return new El('span', att, elements); }
@@ -82,7 +86,7 @@ class El {
 	private var att:Attribute;
 	private var elements:Array<El> = [];
 
-	private static var _html = '';
+	public static var _html = '';
 
 	public function new (name:String, att:Attribute, elements:Array<El>){
 		this.name = name;
@@ -90,6 +94,12 @@ class El {
 		this.elements = elements;
 	}
 
+	/**
+	 * make sure when you start a document, it should be empty
+	 */
+	public static function reset(){
+		_html = '';
+	}
 
 	private function convert(name:String, att:Attribute, elements:Array<El>, count:Int = 0):String
 	{
@@ -113,12 +123,14 @@ class El {
 				var _att = attArr[j];
 				var _attName = attArr[j];
 				if(_att == 'clas') _attName = 'class'; // reserved word
+				if(_att == '_class') _attName = 'class'; // reserved word
 				if(_att == 'text') continue;
 				_html += ' $_attName="'+Reflect.field(att,_att)+'"';
 			}
 
 			if(att.text != null){
 				if(name == "comment"){
+					isDone = true;
 					_html += ' ${att.text} -->\n';
 				} else{
 					if(elements == null) {
