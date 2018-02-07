@@ -173,31 +173,24 @@ output
 
 ```
 
-### clas vs class
+### class
 
-`class` is a reserved word in Haxe. So use `clas` instead.
+`class` is a reserved word in Haxe. So use `clas`, `_class` or `"class"` instead.
 Auto completion should help you with this.
 
 ```haxe
 var html = html([
   template({name:'footwo'},[
     div({clas:'container'},[
-      p({text: 'text'}),
-    ])
-  ])
-]);
-```
-
-Or quote "class"
-
-```haxe
-var html = html([
-  template({name:'footwo'},[
+      p({text: 'use: clas'}),
+    ]),
+    div({_class:'container'},[
+      p({text: 'use: _class'}),
+    ]),
     div({'class':'container'},[
-      p({text: 'text'}),
-    ])
-  ])
-]);
+      p({text: 'use: "class"'}),
+    ]),
+  ]
 ```
 
 output will be the same
@@ -206,10 +199,15 @@ output will be the same
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="footwo">
   <div class="container">
-    <p>text</p>
+    <p>use: clas</p>
+  </div>
+  <div class="container">
+    <p>use: _class</p>
+  </div>
+  <div class="container">
+    <p>use: "class"</p>
   </div>
 </template>
-
 ```
 
 
