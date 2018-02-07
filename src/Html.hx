@@ -11,6 +11,7 @@ typedef Attribute = {
 	// default
 	@:optional var accesskey:String;
 	@:optional var clas:String; // class is a reserved word
+	@:optional var _class:String; // class is a reserved word
 	@:optional var contenteditable:String;
 	@:optional var contextmenu:String;
 	@:optional var data:String;
@@ -40,10 +41,10 @@ typedef AAttribute = {
 }
 
 @:enum abstract Target (String) {
-	var BLANK = '_blank';
-	var SELF = '_self';
-	var PARENT = '_parent';
-	var TOP = '_top';
+	var BLANK 	= '_blank';
+	var SELF 	= '_self';
+	var PARENT 	= '_parent';
+	var TOP 	= '_top';
 }
 
 class Html {
@@ -62,15 +63,26 @@ class Html {
 	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 	public static function el(el:String, ?att:Dynamic, ?elements:Array<El>) : El { return new El(el, att, elements); }
 
+	// list
+	public static function ol(?att:Attribute, ?elements:Array<El>) : El { return new El('ol', att, elements); }
+	public static function ul(?att:Attribute, ?elements:Array<El>) : El { return new El('ul', att, elements); }
+	public static function li(?att:Attribute, ?elements:Array<El>) : El { return new El('li', att, elements); }
+
+	// misc
 	public static function div(?att:Attribute, ?elements:Array<El>) : El { return new El('div', att, elements); }
 	public static function span(?att:Attribute, ?elements:Array<El>) : El { return new El('span', att, elements); }
-	public static function p(?att:Attribute, ?elements:Array<El>) : El { return new El('p', att, elements); }
 	public static function button(?att:Attribute, ?elements:Array<El>) : El { return new El('button', att, elements); }
 
+	// link
 	public static function a(?att:AAttribute, ?elements:Array<El>) : El { return new El('a', att, elements); }
 
+	// comment
 	public static function comment(?att:Attribute, ?elements:Array<El>) : El { return new El('comment', att, elements); }
 
+	// paragraph
+	public static function p(?att:Attribute, ?elements:Array<El>) : El { return new El('p', att, elements); }
+
+	// heading
 	public static function h1(?att:Attribute, ?elements:Array<El>) : El { return new El('h1', att, elements); }
 	public static function h2(?att:Attribute, ?elements:Array<El>) : El { return new El('h2', att, elements); }
 	public static function h3(?att:Attribute, ?elements:Array<El>) : El { return new El('h3', att, elements); }
@@ -128,7 +140,7 @@ class El {
 				_html += ' $_attName="'+Reflect.field(att,_att)+'"';
 			}
 
-			if(att.text != null){
+			if(att != null && att.text != null){
 				if(name == "comment"){
 					isDone = true;
 					_html += ' ${att.text} -->\n';
