@@ -11,6 +11,8 @@ import Vue.*;
 class Main {
 
 	public function new () {
+		readmeHTML0();
+		readmeHTML1();
 		readme0();
 		readme1();
 		readme2();
@@ -24,12 +26,58 @@ class Main {
 		vue3();
 	}
 
+	function readmeHTML0(){
+		var templateName = 'html-component';
+		var html = html([
+			div({name:templateName, id:templateName, _class:"container-flued"},[
+				comment('div.container: ${templateName}'),
+				div({clas:'container'},[
+					h1({text:'${templateName.toUpperCase()}'}),
+					p({text: 'subtitle', _class:"lead"}),
+					p({text: 'content for ${templateName}'}),
+					button({clas:"testBtn", text:"click"})
+				])
+			])
+		]);
+		Out.write(html, templateName);
+	}
+
+	function readmeHTML1(){
+		var templateName = 'html-root';
+		var html = html([
+			root({'lang':'en'},[
+				head({},[
+					comment('Required meta tags'),
+    				meta({'charset':'utf-8'}),
+   					meta({'name':'viewport', 'content':'width=device-width, initial-scale=1, shrink-to-fit=no'}),
+					comment('Bootstrap CSS'),
+					title('Bootstrap2'),
+					link({'rel':'stylesheet', 'href':'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', 'integrity':'sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', 'crossorigin':'anonymous'}),
+					link({'rel':'stylesheet', 'href':'/styles/main.css'}),
+					style({'type':'text/css', text:'.test{border: 1px solid pink;}'})
+				]),
+				body({_class:'homepage'},[
+					div({name:templateName, id:templateName, _class:'container-flued'},[
+						comment('div.container: ${templateName}'),
+						div({clas:'container'},[
+							h1({text:'${templateName.toUpperCase()}'}),
+							p({text: 'subtitle', _class:'lead'}),
+							p({text: 'content for ${templateName}'}),
+							button({clas:"testBtn", text:"click"})
+						])
+					])
+				]),
+			]),
+		]);
+		Out.write(html, templateName);
+	}
+
 
 	function readme0(){
 		var templateName = 'pageone';
 		var html = html([
 		  template({name:templateName},[
-		    comment({text:'Start template: ${templateName}'}),
+		    comment('Start template: ${templateName}'),
 		    div({clas:'container'},[
 		      h1({text:'${templateName.toUpperCase()}'}),
 		      p({text: 'template for ${templateName}'}),
@@ -45,7 +93,7 @@ class Main {
 		var templateName = 'address';
 		var html = html([
 			template({name:templateName},[
-				comment({text:'element: address'}),
+				comment('element: address'),
 				el("address",{id:"address-id",text:"element address"})
 			])
 		]);
@@ -56,14 +104,15 @@ class Main {
 		var templateName = 'element_a';
 		var html = html([
 			template({name:templateName},[
-				comment({text:'a with attribute default elements'}),
+				comment('a with attribute default elements'),
 				a({
+					"data-foo":"bar",
 					href:"http://www.haxe.org",
 					text: "haxe.org",
 					target:Target.BLANK,
 					title:"title"
 				}),
-				comment({text:'element: a with attribute foo'}),
+				comment('element: a with attribute foo'),
 				el('a',{
 					"data-foo":"bar",
 					href:"http://www.haxe.org",
@@ -118,7 +167,7 @@ class Main {
 		var templateName = 'page2';
 		var html = html([
 			template({name:templateName},[
-				comment({text:'Start template: ${templateName}'}),
+				comment('Start template: ${templateName}'),
 				div({clas:'container'},[
 					h1({text:'${templateName.toUpperCase()}'}),
 					p({text: 'template for ${templateName}'}),
@@ -141,14 +190,14 @@ class Main {
 			div({id:'app'},[
 				h1({text:'Hello App!'}),
 				p({},[
-					comment({text:'use router-link component for navigation.'}),
-					comment({text:'specify the link by passing the `to` prop.'}),
-					comment({text:'`<router-link>` will be rendered as an `<a>` tag by default'}),
+					comment('use router-link component for navigation.'),
+					comment('specify the link by passing the `to` prop.'),
+					comment('`<router-link>` will be rendered as an `<a>` tag by default'),
 					routerLink({to:'/foo',text:'Go to Foo'}),
 					routerLink({to:'/bar',text:'Go to Bar'}),
 				]),
-				comment({text:'route outlet'}),
-				comment({text:'component matched by the route will render here'}),
+				comment('route outlet'),
+				comment('component matched by the route will render here'),
 				routerView({text:''})
 			])
 		]);

@@ -1,5 +1,8 @@
 package;
 
+import haxe.extern.EitherType;
+import haxe.Constraints.Function;
+
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
@@ -63,6 +66,24 @@ class Html {
 	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 	public static function el(el:String, ?att:Dynamic, ?elements:Array<El>) : El { return new El(el, att, elements); }
 
+
+	public static function root(?att:Attribute, ?elements:Array<El>) : El { return new El('html', att, elements); }
+	public static function head(?att:Attribute, ?elements:Array<El>) : El { return new El('head', att, elements); }
+	public static function body(?att:Attribute, ?elements:Array<El>) : El { return new El('body', att, elements); }
+	public static function meta(?att:Dynamic, ?elements:Array<El>) : El { return new El('meta', att, elements); }
+	public static function link(?att:Dynamic, ?elements:Array<El>) : El { return new El('link', att, elements); }
+	public static function style(?att:Dynamic, ?elements:Array<El>) : El { return new El('style', att, elements); }
+
+	public static function title(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
+		var temp : Attribute = {};
+		if(Std.is(att,String)){
+			temp.text = att;
+		} else {
+			temp = att;
+		}
+		return new El('title', temp, elements);
+	}
+
 	// list
 	public static function ol(?att:Attribute, ?elements:Array<El>) : El { return new El('ol', att, elements); }
 	public static function ul(?att:Attribute, ?elements:Array<El>) : El { return new El('ul', att, elements); }
@@ -77,7 +98,15 @@ class Html {
 	public static function a(?att:AAttribute, ?elements:Array<El>) : El { return new El('a', att, elements); }
 
 	// comment
-	public static function comment(?att:Attribute, ?elements:Array<El>) : El { return new El('comment', att, elements); }
+	public static function comment(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
+		var temp : Attribute = {};
+		if(Std.is(att,String)){
+			temp.text = att;
+		} else {
+			temp = att;
+		}
+		return new El('comment', temp, elements);
+	}
 
 	// paragraph
 	public static function p(?att:Attribute, ?elements:Array<El>) : El { return new El('p', att, elements); }

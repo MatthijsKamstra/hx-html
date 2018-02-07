@@ -14,8 +14,17 @@ Current elements are:
 - `<div>`
 - `<span>`
 - `<button>`
-- `<template>` (not a standard element)
+- `<ol>`
+- `<ul>`
+- `<li>`
+- `<template>` // meteor (not a standard element)
 - comment (`<!-- ... -->`)
+
+And Vue templates
+
+- `routerView`
+- `routerLink`
+- `routerLink`
 
 # why
 
@@ -45,7 +54,45 @@ And don't forget to add it to your build file
 -lib hx-html
 ```
 
-# Template engine
+# Templates HTML
+
+basic example html create in Haxe
+
+```haxe
+var templateName = 'html-component';
+var html = html([
+  div({name:templateName, id:templateName, _class:"container-flued"},[
+    comment({text:'div.container: ${templateName}'}),
+    div({clas:'container'},[
+      h1({text:'${templateName.toUpperCase()}'}),
+      p({text: 'subtitle', _class:"lead"}),
+      p({text: 'content for ${templateName}'}),
+      button({clas:"testBtn", text:"click"})
+    ])
+  ])
+]);
+```
+
+creates as output
+
+
+```html
+<!-- This template is generated with Haxe. Do not edit! -->
+<div class="container-flued" name="html-component" id="html-component">
+  <!-- div.container: html-component -->
+  <div class="container">
+    <h1>HTML-COMPONENT</h1>
+    <p class="lead">subtitle</p>
+    <p>content for html-component</p>
+    <button class="testBtn">click</button>
+  </div>
+</div>
+```
+
+
+
+
+# Templates Meteor
 
 This is the desired output
 
@@ -96,9 +143,74 @@ Output
 </template>
 ```
 
+
+# Templates Vue.js
+
+create templates useable with vue.js
+
+see for example below: <https://router.vuejs.org/en/essentials/getting-started.html>
+
+
+```haxe
+var templateName = 'vue0';
+var html = vue([
+  div({id:'app'},[
+    h1({text:'Hello App!'}),
+    p({},[
+      comment({text:'use router-link component for navigation.'}),
+      comment({text:'specify the link by passing the `to` prop.'}),
+      comment({text:'`<router-link>` will be rendered as an `<a>` tag by default'}),
+      routerLink({to:'/foo',text:'Go to Foo'}),
+      routerLink({to:'/foo',text:'Go to Bar'}),
+    ]),
+    comment({text:'route outlet'}),
+    comment({text:'component matched by the route will render here'}),
+    routerView({text:''})
+  ])
+]);
+Out.write(html, templateName);
+```
+
+
+```html
+
+<!-- This template is generated with Haxe. Do not edit! -->
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/foo">Go to Bar</router-link>
+  </p>
+  <!-- route outlet -->
+  <!-- component matched by the route will render here -->
+  <router-view></router-view>
+</div>
+
+```
+
+
+
 # TIPS
 
 This is WIP, so not complete AND may change in the future.
+
+### comment
+
+```html
+var html = html([
+  comment('test0'),         // prefered methode
+  comment({text:'test1'}),  // all elements have this
+]);
+```
+
+```html
+<!-- This template is generated with Haxe. Do not edit! -->
+<!-- test0 -->
+<!-- test1 -->
+```
 
 ### any element
 
@@ -141,6 +253,7 @@ var html = html([
   template({name:templateName},[
     comment({text:'a with attribute default elements'}),
     a({
+      "data-foo":"bar",
       href:"http://www.haxe.org",
       text: "haxe.org",
       target:Target.BLANK,
@@ -156,21 +269,18 @@ var html = html([
     }),
   ])
 ]);
-
 ```
 
 output
 
 ```html
-
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="element_a">
   <!-- a with attribute default elements -->
-  <a href="http://www.haxe.org" target="_blank" title="title">haxe.org</a>
+  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
   <!-- element: a with attribute foo -->
   <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
 </template>
-
 ```
 
 ### class
@@ -212,52 +322,6 @@ output will be the same
 
 
 
-
-# Vue.js
-
-<https://router.vuejs.org/en/essentials/getting-started.html>
-
-
-```haxe
-var templateName = 'vue0';
-var html = vue([
-  div({id:'app'},[
-    h1({text:'Hello App!'}),
-    p({},[
-      comment({text:'use router-link component for navigation.'}),
-      comment({text:'specify the link by passing the `to` prop.'}),
-      comment({text:'`<router-link>` will be rendered as an `<a>` tag by default'}),
-      routerLink({to:'/foo',text:'Go to Foo'}),
-      routerLink({to:'/foo',text:'Go to Bar'}),
-    ]),
-    comment({text:'route outlet'}),
-    comment({text:'component matched by the route will render here'}),
-    routerView({text:''})
-  ])
-]);
-Out.write(html, templateName);
-```
-
-
-```html
-
-<!-- This template is generated with Haxe. Do not edit! -->
-<div id="app">
-  <h1>Hello App!</h1>
-  <p>
-    <!-- use router-link component for navigation. -->
-    <!-- specify the link by passing the `to` prop. -->
-    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-    <router-link to="/foo">Go to Foo</router-link>
-    <router-link to="/foo">Go to Bar</router-link>
-  </p>
-  <!-- route outlet -->
-  <!-- component matched by the route will render here -->
-  <router-view></router-view>
-</div>
-
-
-```
 
 
 # Others
