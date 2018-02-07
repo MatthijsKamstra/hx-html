@@ -14,10 +14,14 @@ class Main {
 		readme0();
 		readme1();
 		readme2();
+		readme3();
 		init0();
 		init1();
 		init2();
 		vue0();
+		vue1();
+		vue2();
+		vue3();
 	}
 
 
@@ -67,6 +71,24 @@ class Main {
 					target:Target.BLANK,
 					title:"title"
 				}),
+			])
+		]);
+		Out.write(html, templateName);
+	}
+
+	function readme3 (){
+		var templateName = 'class';
+		var html = html([
+			template({name:'footwo'},[
+				div({clas:'container'},[
+					p({text: 'use: clas'}),
+				]),
+				div({_class:'container'},[
+					p({text: 'use: _class'}),
+				]),
+				div({'class':'container'},[
+					p({text: 'use: "class"'}),
+				]),
 			])
 		]);
 		Out.write(html, templateName);
@@ -123,11 +145,82 @@ class Main {
 					comment({text:'specify the link by passing the `to` prop.'}),
 					comment({text:'`<router-link>` will be rendered as an `<a>` tag by default'}),
 					routerLink({to:'/foo',text:'Go to Foo'}),
-					routerLink({to:'/foo',text:'Go to Bar'}),
+					routerLink({to:'/bar',text:'Go to Bar'}),
 				]),
 				comment({text:'route outlet'}),
 				comment({text:'component matched by the route will render here'}),
 				routerView({text:''})
+			])
+		]);
+		Out.write(html, templateName);
+	}
+
+	function vue1(){
+		var templateName = 'vue1';
+		var html = vue([
+			div({id:'app'},[
+				p({text:'{{ message }}'})
+			])
+		]);
+		Out.write(html, templateName);
+	}
+
+	function vue2(){
+		// <span v-bind:title="message">
+		var templateName = 'vue2';
+		var html = vue([
+			div({id:'app-2'},[
+				span({
+					'v-bind:title':"message",
+					text:'Hover your mouse over me for a few seconds to see my dynamically bound title!'
+				}),
+				span({
+					'v-if':"seen",
+					text:'Now you see m'
+				}),
+				ol({}, [
+					li({text:'list item 1'}),
+					li({text:'list item 2'}),
+					li({text:'list item 3'}),
+				]),
+				ol({}, [
+					el('li',{
+						"v-for":"todo in todos",
+						text:"{{ todo.text }}",
+					}),
+				]),
+				p({text:'{{message}}'}),
+				button({
+					'v-on:click':'reverseMessage',
+					text : 'Reverse Message'
+				}),
+				el('input', {
+					"v-model":"message"
+				}),
+				ol({},[
+					el('todo-item',{
+						'v-for':"item in groceryList",
+				      	'v-bind:todo':"item",
+				      	'v-bind:key':"item.id",
+					}),
+				]),
+				el('app-nav', {}, [
+					el('app-view', {}, [
+						el('app-sidebar', {text:''}),
+						el('app-content', {text:''}),
+					]),
+				]),
+
+			])
+		]);
+		Out.write(html, templateName);
+	}
+
+	function vue3 (){
+		var templateName = 'vue3';
+		var html = vue([
+			div({id:'app'},[
+				span({'v-if':'seen'})
 			])
 		]);
 		Out.write(html, templateName);
