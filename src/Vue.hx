@@ -3,15 +3,6 @@ package;
 import Html.El;
 import Html.Attribute;
 
-
-typedef VueAttribute = {
-	> Attribute,
-
-	@:optional var vbind:String;
-	@:optional var vif:Dynamic;
-
-}
-
 class Vue extends Html {
 
 	// start
@@ -23,9 +14,4 @@ class Vue extends Html {
 
 	public static function routerView(?att:Dynamic, ?elements:Array<El>) : El { return new El('router-view', att, elements); }
 	public static function routerLink(?att:Dynamic, ?elements:Array<El>) : El { return new El('router-link', att, elements); }
-	public static function empty(?att:Dynamic, ?elements:Array<El>) : El { return new El('', att, elements); }
-
-	public static function span(?att:VueAttribute, ?elements:Array<El>) : El { return new El('span', att, elements); }
-
-
 }
