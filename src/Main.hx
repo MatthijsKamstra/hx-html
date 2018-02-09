@@ -11,6 +11,7 @@ import Vue.*;
 class Main {
 
 	public function new () {
+		test0();
 		readmeHTML0();
 		readmeHTML1();
 		readme0();
@@ -24,6 +25,27 @@ class Main {
 		vue1();
 		vue2();
 		vue3();
+	}
+
+	function test0(){
+		var templateName = 'test';
+		var html = html([
+			root({'lang':'en'},[
+				head({},[
+					comment('Required meta tags'),
+    				meta({'charset':'utf-8'}),
+					meta({'name':'viewport', 'content':'width=device-width, initial-scale=1, shrink-to-fit=no'}),
+					comment('Bootstrap CSS'),
+					title('Bootstrap2'),
+					link({'rel':'stylesheet', 'href':'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', 'integrity':'sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', 'crossorigin':'anonymous'}),
+					link({'rel':'stylesheet', 'href':'/styles/main.css'}),
+					style({'type':'text/css', text:'\n\t.test{border: 1px solid pink;}\n'}),
+					style({'type':'text/css', text:'.test{border: 1px solid pink;}'}),
+				]),
+			]),
+		]);
+		Out.write(html, templateName);
+
 	}
 
 	function readmeHTML0(){

@@ -5,6 +5,9 @@ import haxe.Constraints.Function;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 
+
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
 typedef Attribute = {
 	// custom att
@@ -17,13 +20,19 @@ typedef Attribute = {
 	@:optional var _class:String; // class is a reserved word
 	@:optional var contenteditable:String;
 	@:optional var contextmenu:String;
-	@:optional var data:String;
+	// @:optional var data:String; data-*
 	@:optional var dir:String;
 	@:optional var draggable:String;
 	@:optional var dropzone:String;
 	@:optional var hidden:String;
 	@:optional var id:String;
+
 	@:optional var itemid:String;
+	@:optional var itemprop:String;
+	@:optional var itemref:String;
+	@:optional var itemscope:String;
+	@:optional var itemtype:String;
+
 	@:optional var lang:String;
 	@:optional var spellcheck:String;
 	@:optional var style:String;
@@ -123,6 +132,11 @@ class Html {
 
 class El {
 
+
+	// https://developer.mozilla.org/en-US/docs/Glossary/empty_element
+	private var emptyElementArray = ['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'];
+
+
 	private var name : String;
 	private var att:Attribute;
 	private var elements:Array<El> = [];
@@ -150,8 +164,11 @@ class El {
 		for ( i in 0 ... count ) tab += '\t';
 
 		var isDone = false;
+		var isEmpty = false;
 
+		// so now we have an element name: `<name `
 		if(name != ''){
+			if(emptyElementArray.indexOf(name) != -1) isEmpty = true;
 
 			if(name == 'comment'){
 				_html += '$tab<!--';
@@ -159,6 +176,7 @@ class El {
 				_html += '$tab<$name';
 			}
 
+			// set all atributes of the element
 			var attArr = Reflect.fields(att);
 			for ( j in 0 ... attArr.length ) {
 				var _att = attArr[j];
@@ -170,21 +188,24 @@ class El {
 			}
 
 			if(att != null && att.text != null){
+				// there are attributes
 				if(name == "comment"){
 					isDone = true;
 					_html += ' ${att.text} -->\n';
 				} else{
 					if(elements == null) {
 						isDone = true;
-						_html += '>${att.text}</$name>\n';
+						_html += '>${att.text.split('\n').join('\n'+tab)}</$name>\n';
 					} else {
-						_html += '>${att.text}\n';
+						_html += '>${att.text.split('\n').join('\n'+tab)}\n';
 					}
 				}
 			} else {
+				if(isEmpty) isDone = true;
 				_html += '>\n';
 			}
 
+			// if there are more elements that needs generating
 			if(elements != null){
 				count++;
 				for ( i in 0 ... elements.length ) {
@@ -194,8 +215,9 @@ class El {
 			}
 			if(!isDone) _html += '$tab</$name>\n';
 		} else {
+			// no 'name' element, so this is the root : we start with the comment
 			_html += '<!-- This template is generated with Haxe. Do not edit! -->\n';
-			// html root?
+			// and run through the elements
 			for ( i in 0 ... elements.length ) {
 				var el = elements[i];
 				convert(el.name, el.att, el.elements, 0);

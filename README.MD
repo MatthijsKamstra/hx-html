@@ -62,7 +62,7 @@ basic example html create in Haxe
 var templateName = 'html-component';
 var html = html([
   div({name:templateName, id:templateName, _class:"container-flued"},[
-    comment({text:'div.container: ${templateName}'}),
+    comment('div.container: ${templateName}'),
     div({clas:'container'},[
       h1({text:'${templateName.toUpperCase()}'}),
       p({text: 'subtitle', _class:"lead"}),
@@ -116,7 +116,7 @@ How to make this in Haxe with hx-html
 var templateName = 'pageone';
 var html = html([
   template({name:templateName},[
-    comment({text:'Start template: ${templateName}'}),
+    comment('Start template: ${templateName}'),
     div({clas:'container'},[
       h1({text:'${templateName.toUpperCase()}'}),
       p({text: 'template for ${templateName}'}),
@@ -157,14 +157,14 @@ var html = vue([
   div({id:'app'},[
     h1({text:'Hello App!'}),
     p({},[
-      comment({text:'use router-link component for navigation.'}),
-      comment({text:'specify the link by passing the `to` prop.'}),
-      comment({text:'`<router-link>` will be rendered as an `<a>` tag by default'}),
+      comment('use router-link component for navigation.'),
+      comment('specify the link by passing the `to` prop.'),
+      comment('`<router-link>` will be rendered as an `<a>` tag by default'),
       routerLink({to:'/foo',text:'Go to Foo'}),
       routerLink({to:'/foo',text:'Go to Bar'}),
     ]),
-    comment({text:'route outlet'}),
-    comment({text:'component matched by the route will render here'}),
+    comment('route outlet'),
+    comment('component matched by the route will render here'),
     routerView({text:''})
   ])
 ]);
@@ -223,7 +223,7 @@ So lets look at `address` (I have never used this element before, so a good one 
 var templateName = 'address';
 var html = html([
   template({name:templateName},[
-    comment({text:'element: address'}),
+    comment('element: address'),
     el("address",{id:"address-id",text:"element address"})
   ])
 ]);
@@ -251,7 +251,7 @@ Just use quotes:
 var templateName = 'element_a';
 var html = html([
   template({name:templateName},[
-    comment({text:'a with attribute default elements'}),
+    comment('a with attribute default elements'),
     a({
       "data-foo":"bar",
       href:"http://www.haxe.org",
@@ -259,7 +259,7 @@ var html = html([
       target:Target.BLANK,
       title:"title"
     }),
-    comment({text:'element: a with attribute foo'}),
+    comment('element: a with attribute foo'),
     el('a',{
       "data-foo":"bar",
       href:"http://www.haxe.org",
