@@ -211,6 +211,7 @@ class El {
 
 		var isDone = false;
 		var isEmpty = false;
+		var className = '';
 
 		// so now we have an element name: `<name `
 		if(name != ''){
@@ -227,8 +228,15 @@ class El {
 			for ( j in 0 ... attArr.length ) {
 				var _att = attArr[j];
 				var _attName = attArr[j];
-				if(_att == 'clas') _attName = 'class'; // reserved word
-				if(_att == '_class') _attName = 'class'; // reserved word
+
+				// make sure reserved words are mapped back
+				switch (_att.toString()) {
+					case 'clas', '_class', 'class':
+						className = Reflect.field(att,_att);
+						_attName = 'class'; // reserved word
+					default:
+				}
+
 				if(_att == 'text') continue;
 				_html += ' $_attName="'+Reflect.field(att,_att)+'"';
 			}
@@ -259,7 +267,13 @@ class El {
 					convert(el.name, el.att, el.elements, count);
 				}
 			}
-			if(!isDone) _html += '$tab</$name>\n';
+			if(!isDone) {
+				if(name == 'div' && className != ''){
+					_html += '$tab</$name><!-- /.$className -->\n';
+				} else {
+					_html += '$tab</$name>\n';
+				}
+			}
 		} else {
 			// no 'name' element, so this is the root : we start with the comment
 			_html += '<!-- This template is generated with Haxe. Do not edit! -->\n';
