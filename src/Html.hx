@@ -5,8 +5,53 @@ import haxe.Constraints.Function;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
+typedef ScriptAttribute = {
+	> Attribute,
+	@:optional var async:Bool;
+	@:optional var crossorigin:String;
+	@:optional var defer:Bool;
+
+	@:optional var integrity:String;
+	@:optional var nonce:String;
+	@:optional var src:String;
+	@:optional var text:String;
+	@:optional var type:String;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style
+typedef StyleAttribute = {
+	> Attribute,
+	@:optional var type:String;
+	@:optional var media:String;
+	@:optional var nonce:String;
+	@:optional var title:String;
+}
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+typedef MetaAttribute = {
+	> Attribute,
+	@:optional var charset:String;
+	@:optional var content:String;
+	// @:optional var http-equiv:String; // doesn't work
+	@:optional var name:String;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link
+typedef LinkAttribute = {
+	> Attribute,
+	@:optional var as:String;
+	@:optional var crossorigin:String;
+	@:optional var href:String;
+	@:optional var hreflang:String;
+	@:optional var integrity:String;
+	@:optional var media:String;
+	@:optional var rel:String;
+	@:optional var target:String;
+	@:optional var title:String;
+	@:optional var type:String;
+}
+
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
 typedef Attribute = {
@@ -79,9 +124,10 @@ class Html {
 	public static function root(?att:Attribute, ?elements:Array<El>) : El { return new El('html', att, elements); }
 	public static function head(?att:Attribute, ?elements:Array<El>) : El { return new El('head', att, elements); }
 	public static function body(?att:Attribute, ?elements:Array<El>) : El { return new El('body', att, elements); }
-	public static function meta(?att:Dynamic, ?elements:Array<El>) : El { return new El('meta', att, elements); }
-	public static function link(?att:Dynamic, ?elements:Array<El>) : El { return new El('link', att, elements); }
-	public static function style(?att:Dynamic, ?elements:Array<El>) : El { return new El('style', att, elements); }
+	public static function meta(?att:MetaAttribute, ?elements:Array<El>) : El { return new El('meta', att, elements); }
+	public static function link(?att:LinkAttribute, ?elements:Array<El>) : El { return new El('link', att, elements); }
+	public static function style(?att:StyleAttribute, ?elements:Array<El>) : El { return new El('style', att, elements); }
+	public static function script(?att:ScriptAttribute, ?elements:Array<El>) : El { return new El('style', att, elements); }
 
 	public static function title(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
 		var temp : Attribute = {};
