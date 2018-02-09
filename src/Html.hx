@@ -129,6 +129,16 @@ class Html {
 	public static function style(?att:StyleAttribute, ?elements:Array<El>) : El { return new El('style', att, elements); }
 	public static function script(?att:ScriptAttribute, ?elements:Array<El>) : El { return new El('style', att, elements); }
 
+	// comment
+	public static function comment(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
+		var temp : Attribute = {};
+		if(Std.is(att,String)){
+			temp.text = att;
+		} else {
+			temp = att;
+		}
+		return new El('comment', temp, elements);
+	}
 	public static function title(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
 		var temp : Attribute = {};
 		if(Std.is(att,String)){
@@ -152,16 +162,6 @@ class Html {
 	// link
 	public static function a(?att:AAttribute, ?elements:Array<El>) : El { return new El('a', att, elements); }
 
-	// comment
-	public static function comment(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
-		var temp : Attribute = {};
-		if(Std.is(att,String)){
-			temp.text = att;
-		} else {
-			temp = att;
-		}
-		return new El('comment', temp, elements);
-	}
 
 	// paragraph
 	public static function p(?att:Attribute, ?elements:Array<El>) : El { return new El('p', att, elements); }
