@@ -1,9 +1,10 @@
 package;
 
-import Html;
-import Html.*;
-import Vue;
-import Vue.*;
+import template.Html;
+import template.Html.*;
+import template.TVue;
+import template.TVue.*;
+import template.Out;
 
 /**
  * @author Matthijs Kamstra aka [mck]

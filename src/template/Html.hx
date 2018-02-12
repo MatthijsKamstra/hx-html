@@ -1,4 +1,4 @@
-package;
+package template;
 
 import haxe.extern.EitherType;
 import haxe.Constraints.Function;
@@ -158,6 +158,7 @@ class Html {
 	public static function div(?att:Attribute, ?elements:Array<El>) : El { return new El('div', att, elements); }
 	public static function span(?att:Attribute, ?elements:Array<El>) : El { return new El('span', att, elements); }
 	public static function button(?att:Attribute, ?elements:Array<El>) : El { return new El('button', att, elements); }
+	public static function img(?att:Attribute, ?elements:Array<El>) : El { return new El('img', att, elements); }
 
 	// link
 	public static function a(?att:AAttribute, ?elements:Array<El>) : El { return new El('a', att, elements); }
@@ -268,6 +269,7 @@ class El {
 				}
 			}
 			if(!isDone) {
+				// [mck] add `id` AND `class` to the end comment?
 				if(name == 'div' && className != ''){
 					_html += '$tab</$name><!-- /.$className -->\n';
 				} else {

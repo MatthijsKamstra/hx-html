@@ -1,9 +1,9 @@
-package;
+package template;
 
-import Html.El;
-import Html.Attribute;
+import template.Html.El;
+import template.Html.Attribute;
 
-class Vue extends Html {
+class TVue extends template.Html {
 
 	// start
 	public static function vue(?elements:Array<El>):El{
@@ -14,4 +14,5 @@ class Vue extends Html {
 
 	public static function routerView(?att:Dynamic, ?elements:Array<El>) : El { return new El('router-view', att, elements); }
 	public static function routerLink(?att:Dynamic, ?elements:Array<El>) : El { return new El('router-link', att, elements); }
+	public static function transition(?att:Dynamic, ?elements:Array<El>) : El { return new El('transition', att, elements); }
 }

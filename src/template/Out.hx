@@ -1,3 +1,5 @@
+package template;
+
 class Out {
 
 	public static function write (html,name){
