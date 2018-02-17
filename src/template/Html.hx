@@ -97,6 +97,25 @@ typedef AAttribute = {
 	@:optional var type:String;
 }
 
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+typedef ImgAttribute = {
+	> Attribute,
+	@:optional var title:String;
+	@:optional var alt:String;
+	@:optional var crossorigin:String;
+	@:optional var decoding:String;
+	@:optional var height:String;
+	@:optional var ismap:String;
+	@:optional var longdesc:String;
+	@:optional var name:String;
+	@:optional var referrerpolicy:String;
+	@:optional var sizes:String;
+	@:optional var src:String;
+	@:optional var srcset:String;
+	@:optional var width:String;
+	@:optional var usemap:String;
+}
+
 @:enum abstract Target (String) {
 	var BLANK 	= '_blank';
 	var SELF 	= '_self';
@@ -158,7 +177,7 @@ class Html {
 	public static function div(?att:Attribute, ?elements:Array<El>) : El { return new El('div', att, elements); }
 	public static function span(?att:Attribute, ?elements:Array<El>) : El { return new El('span', att, elements); }
 	public static function button(?att:Attribute, ?elements:Array<El>) : El { return new El('button', att, elements); }
-	public static function img(?att:Attribute, ?elements:Array<El>) : El { return new El('img', att, elements); }
+	public static function img(?att:ImgAttribute, ?elements:Array<El>) : El { return new El('img', att, elements); }
 
 	// link
 	public static function a(?att:AAttribute, ?elements:Array<El>) : El { return new El('a', att, elements); }
@@ -190,7 +209,7 @@ class El {
 
 	public static var _html = '';
 
-	public function new (name:String, att:Attribute, elements:Array<El>){
+	public function new (name:String, att:Attribute, elements:Array<El>) {
 		this.name = name;
 		this.att = att;
 		this.elements = elements;
@@ -199,12 +218,11 @@ class El {
 	/**
 	 * make sure when you start a document, it should be empty
 	 */
-	public static function reset(){
+	public static function reset() {
 		_html = '';
 	}
 
-	private function convert(name:String, att:Attribute, elements:Array<El>, count:Int = 0):String
-	{
+	private function convert(name:String, att:Attribute, elements:Array<El>, count:Int = 0):String {
 		//trace("Html.convert: ", name, att, elements, tab);
 
 		var tab = '';
