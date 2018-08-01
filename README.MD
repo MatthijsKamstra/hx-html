@@ -19,12 +19,18 @@ Current elements are:
 - `<li>`
 - `<template>` // meteor (not a standard element)
 - comment (`<!-- ... -->`)
+- print (`// what every I want`)
 
 And Vue templates
 
 - `routerView`
 - `routerLink`
 - `routerLink`
+
+And Swig templates
+
+- `if`
+- `endif`
 
 # why
 
@@ -53,6 +59,15 @@ And don't forget to add it to your build file
 ```
 -lib hx-html
 ```
+
+# Build
+
+build the js file, build the neko file and run neko to create the files in the bin folder
+
+```
+haxe build_all.hxml
+```
+
 
 # Templates HTML
 
@@ -188,6 +203,51 @@ Out.write(html, templateName);
   <!-- component matched by the route will render here -->
   <router-view></router-view>
 </div>
+
+```
+
+
+# Templates Swig
+
+create templates useable for swig
+
+
+```haxe
+		var templateName = 'swig0';
+		var html = swig([
+			comment('Start template: ${templateName}'),
+			div({clas:'container'}, [
+				h1({text:'{{ pagename|title }}'}),
+				p({},[
+					vars('pagename|uppercase'),
+				]),
+				ul({}, [
+					print('{% for author in authors %}'),
+					print('<li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>'),
+					print('{% endfor %}'),
+				])
+			])
+		]);
+		Out.write(html, templateName);
+```
+
+
+```html
+
+<!-- This template is generated with Haxe. Do not edit! -->
+<!-- Start template: swig0 -->
+<div class="container">
+	<h1>{{ pagename|title }}</h1>
+	<p>
+		{{ pagename|uppercase }}
+	</p>
+	<ul>
+		{% for author in authors %}
+		<li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>
+		{% endfor %}
+	</ul>
+</div><!-- /.container -->
+
 
 ```
 

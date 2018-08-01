@@ -58,6 +58,9 @@ typedef Attribute = {
 	// custom att
 	@:optional var name : String;
 	@:optional var text : String;
+	@:optional var print : String;
+	@:optional var print_start : String;
+	@:optional var print_end : String;
 
 	// default
 	@:optional var accesskey:String;
@@ -245,12 +248,20 @@ class El {
 		if(name != ''){
 			if(emptyElementArray.indexOf(name) != -1) isEmpty = true;
 
-			if(name == 'comment'){
-				_html += '$tab<!--';
-			} else if (name == 'print'){
-				_html += '$tab';
-			} else {
-				_html += '$tab<$name';
+			switch (name) {
+				case 'comment':
+					_html += '$tab<!--';
+				case '{#', 'swig_comment':
+					_html += '$tab{#';
+				case '{%', 'iff', 'swig_if', 'if':
+					_html += '$tab{% if ${att.text} %}';
+				case '{{', 'swig_var':
+					_html += '$tab{{';
+				case 'print','print_end','print_start':
+					_html += '$tab';
+				default :
+					// trace ("case '"+name+"': trace ('"+name+"');");
+					_html += '$tab<$name';
 			}
 
 			// set all atributes of the element
@@ -268,24 +279,40 @@ class El {
 				}
 
 				if(_att == 'text') continue;
+				if(_att.indexOf('print') != -1){
+					_html += Reflect.field(att,_att);
+					continue;
+				}
 				_html += ' $_attName="'+Reflect.field(att,_att)+'"';
 			}
 
+			// close tag
 			if(att != null && att.text != null){
 				// there are attributes
-				if(name == "comment"){
-					isDone = true;
-					_html += ' ${att.text} -->\n';
-				} else if(name == "print"){
-					isDone = true;
-					_html += '${att.text}\n';
-				} else {
-					if(elements == null) {
+				switch (name) {
+					case 'comment':
 						isDone = true;
-						_html += '>${att.text.split('\n').join('\n'+tab)}</$name>\n';
-					} else {
-						_html += '>${att.text.split('\n').join('\n'+tab)}\n';
-					}
+						_html += ' ${att.text} -->\n';
+					case '{#', 'swig_comment':
+						isDone = true;
+						_html += ' ${att.text} #}\n';
+					case '{{', 'swig_var':
+						isDone = true;
+						_html += ' ${att.text} }}\n';
+					case '{%', 'iff', 'swig_if', 'if':
+						isDone = true;
+						_html += '{% endif %}\n';
+					case 'print','print_end','print_start':
+						isDone = true;
+						_html += '${att.text}\n';
+					default :
+						//trace ("case '"+name+"': trace ('"+name+"');");
+						if(elements == null) {
+							isDone = true;
+							_html += '>${att.text.split('\n').join('\n'+tab)}</$name>\n';
+						} else {
+							_html += '>${att.text.split('\n').join('\n'+tab)}\n';
+						}
 				}
 			} else {
 				if(isEmpty) isDone = true;

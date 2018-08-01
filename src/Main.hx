@@ -28,6 +28,7 @@ class Main {
 		vue2();
 		vue3();
 		swig0();
+		swig1();
 	}
 
 	function test0(){
@@ -304,25 +305,43 @@ class Main {
 		var templateName = 'swig0';
 		var html = swig([
 			comment('Start template: ${templateName}'),
-			h1({text:'{{ pagename|title }}'}),
-			ul({}, [
-				print('{% for author in authors %}'),
-				print('<li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>'),
-				print('{% endfor %}'),
+			div({clas:'container'}, [
+				h1({text:'{{ pagename|title }}'}),
+				p({},[
+					vars('pagename|uppercase'),
+				]),
+				ul({}, [
+					print('{% for author in authors %}'),
+					print('<li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>'),
+					print('{% endfor %}'),
+					// next is not good enough
+					// comment('the next needs more love'),
+					// li({text:'{{ author }}', print:'{% if loop.first %}', _class:'first', print_end:'{% endif %}'}),
+					// iff('loop.first',[])
+				])
 			])
 		]);
-
-
-		// <ul>
-		// {% for author in authors %}
-		//     <li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>
-		// {% endfor %}
-		// </ul>
-
 		Out.write(html, templateName);
 	}
 
-
+	function swig1 (){
+		var templateName = 'swig1';
+		var html = swig([
+			comment('Start template: ${templateName}'),
+			ul({}, [
+				swig_comment('comments that will not be generated'),
+				// print('<li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>'),
+				// print('{% endfor %}'),
+				// // next is not good enough
+				// comment('the next needs more love'),
+				// li({text:'{{ author }}', print:'{% if loop.first %}', _class:'first', print_end:'{% endif %}'}),
+				swig_if('loop.first',[
+					swig_comment('if loop'),
+				]),
+			])
+		]);
+		Out.write(html, templateName);
+	}
 
 	static public function main () {
 		var app = new Main ();
