@@ -4,6 +4,7 @@ import template.Html;
 import template.Html.*;
 import template.TVue;
 import template.TVue.*;
+import template.TSwig.*;
 import template.Out;
 
 /**
@@ -26,6 +27,7 @@ class Main {
 		vue1();
 		vue2();
 		vue3();
+		swig0();
 	}
 
 	function test0(){
@@ -295,6 +297,28 @@ class Main {
 				span({'v-if':'seen'})
 			])
 		]);
+		Out.write(html, templateName);
+	}
+
+	function swig0 (){
+		var templateName = 'swig0';
+		var html = swig([
+			comment('Start template: ${templateName}'),
+			h1({text:'{{ pagename|title }}'}),
+			ul({}, [
+				print('{% for author in authors %}'),
+				print('<li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>'),
+				print('{% endfor %}'),
+			])
+		]);
+
+
+		// <ul>
+		// {% for author in authors %}
+		//     <li{% if loop.first %} class="first"{% endif %}>{{ author }}</li>
+		// {% endfor %}
+		// </ul>
+
 		Out.write(html, templateName);
 	}
 

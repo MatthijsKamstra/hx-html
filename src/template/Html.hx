@@ -167,6 +167,15 @@ class Html {
 		}
 		return new El('title', temp, elements);
 	}
+	public static function print(?att:EitherType<Attribute,String>, ?elements:Array<El>) : El {
+		var temp : Attribute = {};
+		if(Std.is(att,String)){
+			temp.text = att;
+		} else {
+			temp = att;
+		}
+		return new El('print', temp, elements);
+	}
 
 	// list
 	public static function ol(?att:Attribute, ?elements:Array<El>) : El { return new El('ol', att, elements); }
@@ -238,6 +247,8 @@ class El {
 
 			if(name == 'comment'){
 				_html += '$tab<!--';
+			} else if (name == 'print'){
+				_html += '$tab';
 			} else {
 				_html += '$tab<$name';
 			}
@@ -265,7 +276,10 @@ class El {
 				if(name == "comment"){
 					isDone = true;
 					_html += ' ${att.text} -->\n';
-				} else{
+				} else if(name == "print"){
+					isDone = true;
+					_html += '${att.text}\n';
+				} else {
 					if(elements == null) {
 						isDone = true;
 						_html += '>${att.text.split('\n').join('\n'+tab)}</$name>\n';

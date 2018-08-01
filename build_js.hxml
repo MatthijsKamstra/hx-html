@@ -1,0 +1,7 @@
+-cp src
+-main Main
+-js bin/hx-html.js
+-D source-map-content
+-D state=debug
+-debug
+-dce full
