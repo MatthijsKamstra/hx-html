@@ -41,7 +41,6 @@ I guess you can use it for anything!
 
 # Usage Haxelib
 
-
 You might want to update and/or correct the externs: install this repo locally
 
 ```
@@ -68,7 +67,6 @@ build the js file, build the neko file and run neko to create the files in the b
 haxe build_all.hxml
 ```
 
-
 # Templates HTML
 
 basic example html create in Haxe
@@ -90,7 +88,6 @@ var html = html([
 
 creates as output
 
-
 ```html
 <!-- This template is generated with Haxe. Do not edit! -->
 <div class="container-flued" name="html-component" id="html-component">
@@ -103,9 +100,6 @@ creates as output
   </div>
 </div>
 ```
-
-
-
 
 # Templates Meteor
 
@@ -158,13 +152,11 @@ Output
 </template>
 ```
 
-
 # Templates Vue.js
 
 create templates useable with vue.js
 
 see for example below: <https://router.vuejs.org/en/essentials/getting-started.html>
-
 
 ```haxe
 var templateName = 'vue0';
@@ -186,9 +178,7 @@ var html = vue([
 Out.write(html, templateName);
 ```
 
-
 ```html
-
 <!-- This template is generated with Haxe. Do not edit! -->
 <div id="app">
   <h1>Hello App!</h1>
@@ -203,14 +193,11 @@ Out.write(html, templateName);
   <!-- component matched by the route will render here -->
   <router-view></router-view>
 </div>
-
 ```
-
 
 # Templates Swig
 
 create templates useable for swig
-
 
 ```haxe
 		var templateName = 'swig0';
@@ -231,7 +218,6 @@ create templates useable for swig
 		Out.write(html, templateName);
 ```
 
-
 ```html
 
 <!-- This template is generated with Haxe. Do not edit! -->
@@ -251,8 +237,6 @@ create templates useable for swig
 
 ```
 
-
-
 # TIPS
 
 This is WIP, so not complete AND may change in the future.
@@ -260,10 +244,8 @@ This is WIP, so not complete AND may change in the future.
 ### comment
 
 ```html
-var html = html([
-  comment('test0'),         // prefered methode
-  comment({text:'test1'}),  // all elements have this
-]);
+var html = html([ comment('test0'), // prefered methode comment({text:'test1'}),
+// all elements have this ]);
 ```
 
 ```html
@@ -292,13 +274,11 @@ var html = html([
 output
 
 ```html
-
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="address">
   <!-- element: address -->
   <address id="address-id">element address</address>
 </template>
-
 ```
 
 ### unknown attributes
@@ -337,9 +317,13 @@ output
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="element_a">
   <!-- a with attribute default elements -->
-  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
+  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title"
+    >haxe.org</a
+  >
   <!-- element: a with attribute foo -->
-  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
+  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title"
+    >haxe.org</a
+  >
 </template>
 ```
 
@@ -380,10 +364,6 @@ output will be the same
 </template>
 ```
 
-
-
-
-
 # Others
 
 These are the Haxe/html template generators I found.
@@ -395,11 +375,6 @@ These are the Haxe/html template generators I found.
 - <https://github.com/fponticelli/doom> (simular)
 - <https://github.com/MarcWeber/haxe-html> (parser?)
 
-
-
 # Haxe
 
 This is a [Haxe](http://www.haxe.org) project, read more about it in the [README_HAXE.MD](README_HAXE.MD)!
-
-
-
