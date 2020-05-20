@@ -142,13 +142,13 @@ Output
 ```html
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="pageone">
-  <!-- Start template: pageone -->
-  <div class="container">
-    <h1>PAGEONE</h1>
-    <p>template for pageone</p>
-    <p>{{test}}</p>
-    <button class="testBtn">click</button>
-  </div>
+	<!-- Start template: pageone -->
+	<div class="container">
+		<h1>PAGEONE</h1>
+		<p>template for pageone</p>
+		<p>test: {{test}}</p>
+		<button class="testBtn">click</button>
+	</div><!-- /.container -->
 </template>
 ```
 
@@ -168,7 +168,7 @@ var html = vue([
       comment('specify the link by passing the `to` prop.'),
       comment('`<router-link>` will be rendered as an `<a>` tag by default'),
       routerLink({to:'/foo',text:'Go to Foo'}),
-      routerLink({to:'/foo',text:'Go to Bar'}),
+      routerLink({to:'/bar',text:'Go to Bar'}),
     ]),
     comment('route outlet'),
     comment('component matched by the route will render here'),
@@ -187,7 +187,7 @@ Out.write(html, templateName);
     <!-- specify the link by passing the `to` prop. -->
     <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
     <router-link to="/foo">Go to Foo</router-link>
-    <router-link to="/foo">Go to Bar</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
   </p>
   <!-- route outlet -->
   <!-- component matched by the route will render here -->
@@ -219,7 +219,6 @@ create templates useable for swig
 ```
 
 ```html
-
 <!-- This template is generated with Haxe. Do not edit! -->
 <!-- Start template: swig0 -->
 <div class="container">
@@ -233,8 +232,6 @@ create templates useable for swig
 		{% endfor %}
 	</ul>
 </div><!-- /.container -->
-
-
 ```
 
 # TIPS
@@ -244,8 +241,10 @@ This is WIP, so not complete AND may change in the future.
 ### comment
 
 ```html
-var html = html([ comment('test0'), // prefered methode comment({text:'test1'}),
-// all elements have this ]);
+var html = html([
+  comment('test0'), // prefered methode
+  comment({text:'test1'}), // all elements have this
+]);
 ```
 
 ```html
@@ -316,14 +315,10 @@ output
 ```html
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="element_a">
-  <!-- a with attribute default elements -->
-  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title"
-    >haxe.org</a
-  >
-  <!-- element: a with attribute foo -->
-  <a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title"
-    >haxe.org</a
-  >
+	<!-- a with attribute default elements -->
+	<a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
+	<!-- element: a with attribute foo -->
+	<a href="http://www.haxe.org" data-foo="bar" target="_blank" title="title">haxe.org</a>
 </template>
 ```
 
@@ -352,15 +347,15 @@ output will be the same
 ```html
 <!-- This template is generated with Haxe. Do not edit! -->
 <template name="footwo">
-  <div class="container">
-    <p>use: clas</p>
-  </div>
-  <div class="container">
-    <p>use: _class</p>
-  </div>
-  <div class="container">
-    <p>use: "class"</p>
-  </div>
+	<div class="container">
+		<p>use: clas</p>
+	</div><!-- /.container -->
+	<div class="container">
+		<p>use: _class</p>
+	</div><!-- /.container -->
+	<div class="container">
+		<p>use: "class"</p>
+	</div><!-- /.container -->
 </template>
 ```
 
